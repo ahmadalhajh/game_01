@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap 4 Website Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <style>
+  .fakeimg {
+    height: 200px;
+    background: #aaa;
+  }
+
+  </style>
+</head>
+<body>
+
+
+
+<div class="container h-100" style="margin-top:30px; padding-top: 150px; padding-bottom: 150px;">
+  <div class="row h-100 justify-content-center align-items-center">
+    <div class="col-4 text-center">
+        <h4>User</h4>
+        <p id="playerWinCount"></p>
+    </div>
+    
+    <div class="col-4 text-center">
+
+        <input type="button" value="rock" onclick="elementSelected('rock')" />
+        <input type="button" value="paper" onclick="elementSelected('paper')" />
+        <input type="button" value="scissors" onclick="elementSelected('scissors')" />
+        <hr>
+
+        <input type="button" value="Play Game (x5 Times)" onclick="game()" />
+        
+        <hr>
+        <p class="text-left"><span class="font-weight-bold"> Player: </span> <span id="playerSelection"></span> </p>
+        <p class="text-left"><span class="font-weight-bold"> Computer: </span> <span id="computerSelection"></span> </p>
+        <p class="text-left"><span class="font-weight-bold"> Result: </span> <span id="result"></span> </p>
+
+    </div>
+
+    <div class="col-4 text-center">
+        <h4>Computer</h4>
+        <p id="computerWinCount"></p>
+    </div>
+  
+  </div>
+</div>
+
+<script>
+    var game_elements = ['Rock','Paper','Scissors'];
+
+    var playerSelection = 'rock';
+    var computerSelection = computerPlay();
+    var playerWinCount = 0;
+    var computerWinCount = 0;
+    var result = '';
+
+    function computerPlay(){
+        return game_elements[Math.floor(Math.random() * game_elements.length)].toLowerCase();
+    }
+
+    function elementSelected(el){
+        playerSelection = el;
+        computerSelection = computerPlay();
+
+        document.getElementById("result").innerHTML = playRound(playerSelection,computerSelection)
+        // console.log(playRound(playerSelection,computerSelection));
+
+        document.getElementById("playerSelection").innerHTML = playerSelection;
+        document.getElementById("computerSelection").innerHTML = computerSelection;
+        document.getElementById("playerWinCount").innerHTML = playerWinCount;
+        document.getElementById("computerWinCount").innerHTML = computerWinCount;
+        
+    }
+
+    function playRound(playerSelection, computerSelection) {
+        if(playerSelection == 'rock' && computerSelection == 'rock'){
+            return "Draw!";
+        }
+        else if(playerSelection == 'rock' && computerSelection == 'paper'){
+            computerWinCount++;
+            return "You Lose! Paper beats Rock";
+        }
+        else if(playerSelection == 'rock' && computerSelection == 'scissors'){
+            playerWinCount++;
+            return "You Win! Rock beats Scissors";
+        }
+
+        else if(playerSelection == 'paper' && computerSelection == 'paper'){
+            return "Draw!";
+        }
+        else if(playerSelection == 'paper' && computerSelection == 'rock'){
+            playerWinCount++;
+            return "You Win! Paper beats Rock";
+        }
+        else if(playerSelection == 'paper' && computerSelection == 'scissors'){
+            computerWinCount++;
+            return "You Lose! Sciessors beats Paper";
+        }
+
+        else if(playerSelection == 'scissors' && computerSelection == 'scissors'){
+            return "Draw!";
+        }
+        else if(playerSelection == 'scissors' && computerSelection == 'rock'){
+            computerWinCount++;
+            return "You Lose! Rock beats Scissors";
+        }
+        else if(playerSelection == 'scissors' && computerSelection == 'paper'){
+            playerWinCount++;
+            return "You Win! Sciessors beats Paper";
+        }
+
+    }
+
+    function game(){
+        for(let i = 0; i<5; i++){
+            
+            computerSelection = computerPlay();
+
+            document.getElementById("result").innerHTML = playRound(playerSelection,computerSelection)
+            // console.log(playRound(playerSelection,computerSelection));
+
+            document.getElementById("playerSelection").innerHTML = playerSelection;
+            document.getElementById("computerSelection").innerHTML = computerSelection;
+            document.getElementById("playerWinCount").innerHTML = playerWinCount;
+            document.getElementById("computerWinCount").innerHTML = computerWinCount;
+        }
+    }
+
+    
+    // console.log(playRound(playerSelection, computerSelection));
+
+</script>
+
+</body>
+</html>
+
